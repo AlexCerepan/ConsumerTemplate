@@ -23,7 +23,7 @@ class DefaultConsumer():
     def basic_consume_loop(self, topics: list):
         try:
             self.consumer.subscribe(topics)
-
+            print("Subscribed to topics: ", topics)
             while self.running:
                 msg = self.consumer.poll(timeout=1.0)
                 if msg is None: continue
@@ -38,7 +38,6 @@ class DefaultConsumer():
                 else:
                     self.msg_process(msg)
         finally:
-            # Close down consumer to commit final offsets.
             self.consumer.close()
 
     def shutdown(self):
